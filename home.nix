@@ -47,6 +47,6 @@
   programs.git = {
     enable = true;
     userName = "Nora Seeger";
-    userEmail = "nora@seeger.ie"
+    userEmail = "nora@seeger.ie";
   };
 }
