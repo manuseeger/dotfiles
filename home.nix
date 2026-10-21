@@ -1,4 +1,4 @@
-{ callPackage, config, pkgs, ...}
+{ callPackage, config, pkgs, ...}:
 
 {
   imports = [
