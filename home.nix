@@ -39,9 +39,10 @@
   };
 
   xdg.configFile = {
-  "zsh" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/repos/dotfiles/.config/zsh";
-    recursive = true;
+    "zsh" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/repos/dotfiles/.config/zsh";
+      recursive = true;
+    };
   };
 
   programs.git = {
@@ -49,4 +50,6 @@
     userName = "Nora Seeger";
     userEmail = "nora@seeger.ie";
   };
+
+  programs.home-manager.enable = true;
 }
