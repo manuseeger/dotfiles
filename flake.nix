@@ -3,9 +3,9 @@
 
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "nixpkgs/nixos-26.05";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -17,15 +17,22 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      homeConfigurations."ns" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [ ./home.nix ];
-
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
+      homeConfigurations = {
+        ns = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [ 
+            {
+              home = {
+                username = "ns";
+                homeDirectory = "/Users/ns";
+                stateVersion = "26.05";
+              };
+            }
+            {
+              nixpkgs.config.allowUnfree = true;
+            }
+            ./home.nix ];
+        };
       };
     };
 }

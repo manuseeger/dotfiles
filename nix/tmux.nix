@@ -12,10 +12,9 @@
     historyLimit = 50000;
 
     plugins = with pkgs; [
-      tmuxPlugins.tpm
-      tmuxPlugins.tmux-sensible
-      tmuxPlugins.tmux-prefix-highlight
-      tmuxPligins.nord
+      tmuxPlugins.sensible
+      tmuxPlugins.prefix-highlight
+      tmuxPlugins.nord
     ];
 
     extraConfig = ''

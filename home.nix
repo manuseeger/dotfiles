@@ -1,58 +1,52 @@
-{ callPackage, config, pkgs, ...}:
+{ callPackage, config, pkgs, homeDirectory, username,  ...}:
 
-let
-
-in
 {
   imports = [
     ./nix/tmux.nix
     ./nix/atuin.nix
+    ./nix/zsh.nix
+    ./nix/starship.nix
   ];
-}
 
-{
-  home.packages = [
-    pkgs.git
-    pkgs.neovim
-    pkgs.zsh
-    pkgs.fzf
-    pkgs.tmux
-    pkgs.starship
-    pkgs.oh-my-zsh
-    pkgs.go
-    pkgs.ripgrep
-    pkgs.jq
-    pkgs.atuin
-    pkgs.zsh-syntax-highlighting
-    pkgs.zsh-autosuggestions
-    pkgs.oh-my-zsh
-    pkgs.firefox
-    pkgs.syncthing
-    pkgs.vscodium
-    pkgs.kubectl
-    pkgs.kubectx
-    pkgs.podman
-    pkgs.podman-compose
-    pkgs.k9s
-    pkgs.iterm
+  home.packages = with pkgs; [
+    git
+    neovim
+    zsh
+    fzf
+    tmux
+    starship
+    oh-my-zsh
+    go
+    ripgrep
+    jq
+    atuin
+    zsh-syntax-highlighting
+    zsh-autosuggestions
+    oh-my-zsh
+    firefox
+    syncthing
+    vscodium
+    kubectl
+    kubectx
+    podman
+    podman-compose
+    k9s
+    bitwarden-desktop
+    obsidian
   ];
-  
-  home.file.".zshrc" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/repos/dotfiles/.config/zsh/.zshrc";
-  };
-
-  xdg.configFile = {
-    "zsh" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/repos/dotfiles/.config/zsh";
-      recursive = true;
-    };
-  };
 
   programs.git = {
     enable = true;
-    userName = "Nora Seeger";
-    userEmail = "nora@seeger.ie";
+    settings = {    
+      user = {
+        name = "Nora Seeger";
+        email = "nora@seeger.ie";
+      };
+    };
   };
 
-  programs.home-manager.enable = true;
+  programs.home-manager = {
+    enable = true;
+    backupFileExtension = "hm-backup";
+  };
 }
