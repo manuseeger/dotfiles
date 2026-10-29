@@ -1,51 +1,61 @@
-{ callPackage, config, pkgs, homeDirectory, username,  ...}:
+{ config, lib, pkgs, specialArgs, ... }:
 
+let
+  packages = import ./nix/packages.nix;
+  tmuxsettings = import ./nix/tmux.nix;
+  atuinsettings = import ./nix/atuin.nix;
+  zshsettings = import ./nix/zsh.nix;
+  starshipsettings = import ./nix/starship.nix;
+
+  inherit (specialArgs) customGit gitUser gitEmail isDesktop;
+  inherit (lib) mkIf;
+  inherit (pkgs.stdenv) isLinux isDarwin;
+in
 {
-  imports = [
-    ./nix/tmux.nix
-    ./nix/atuin.nix
-    ./nix/zsh.nix
-    ./nix/starship.nix
-  ];
+  nixpkgs.config.allowUnfree = true;
 
-  home.packages = with pkgs; [
-    git
-    neovim
-    zsh
-    fzf
-    tmux
-    starship
-    oh-my-zsh
-    go
-    ripgrep
-    jq
-    atuin
-    zsh-syntax-highlighting
-    zsh-autosuggestions
-    oh-my-zsh
-    firefox
-    syncthing
-    vscodium
-    kubectl
-    kubectx
-    podman
-    podman-compose
-    k9s
-    bitwarden-desktop
-    obsidian
-  ];
-
-  programs.git = {
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+  home.packages = packages pkgs isDesktop;
+  home.homeDirectory = "/home/ns";
+  home.username = "ns";
+  home.stateVersion = "26.05";
+ 
+  programs.zsh = zshsettings pkgs config;
+  programs.tmux = tmuxsettings pkgs;
+  programs.atuin = atuinsettings pkgs;
+  programs.starship = starshipsettings pkgs;
+  programs.jq.enable = true;
+  programs.ssh = {
     enable = true;
-    settings = {    
-      user = {
-        name = "Nora Seeger";
-        email = "nora@seeger.ie";
+    enableDefaultConfig = false;
+    settings = {
+      "Github.com" = {
+        addKeysToAgent = "yes";
+        identityFile = "~/.ssh/github";
       };
     };
   };
+  programs.fzf.enable = true;
 
-  programs.home-manager = {
+  programs.vscodium = mkIf isDesktop {
     enable = true;
+    #extensions = with pkgs.vscode-extensions; [
+    #  vscodevim.vim
+    #  ms-python.python
+    #];
+  };
+
+  programs.git = {
+    enable = true;
+    settings = {
+      user = {
+        name = if customGit then gitUser else "Nora Seeger";
+        email = if customGit then gitUser else "nora@seeger.ie";
+      };
+      pull = {
+        rebase=true;
+      };
+    };
   };
 }
