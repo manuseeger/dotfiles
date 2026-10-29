@@ -7,7 +7,7 @@ let
   zshsettings = import ./nix/zsh.nix;
   starshipsettings = import ./nix/starship.nix;
 
-  inherit (specialArgs) customGit gitUser gitEmail isDesktop;
+  inherit (specialArgs) customGit gitUser gitEmail isDesktop isCorporate;
   inherit (lib) mkIf;
   inherit (pkgs.stdenv) isLinux isDarwin;
 in
@@ -16,7 +16,7 @@ in
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-  home.packages = packages pkgs isDesktop;
+  home.packages = packages pkgs isDesktop isCorporate;
   home.homeDirectory = "/home/ns";
   home.username = "ns";
   home.stateVersion = "26.05";
@@ -38,17 +38,17 @@ in
   };
   programs.fzf.enable = true;
 
-  programs.vscode = mkIf isDesktop {
+  programs.vscodium = mkIf isDesktop {
     enable = true;
     profiles.default = {
       userSettings = {
         "workbench.colorTheme" = "Nord";
       };
       extensions = with pkgs.vscode-extensions; [
-      ms-kubernetes-tools.vscode-kubernetes-tools
-      golang.go
-      jnoortheen.nix-ide
-      arcticicestudio.nord-visual-studio-code
+        ms-kubernetes-tools.vscode-kubernetes-tools
+        golang.go
+        jnoortheen.nix-ide
+        arcticicestudio.nord-visual-studio-code
     ];
     };
   };

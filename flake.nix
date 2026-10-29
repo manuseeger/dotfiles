@@ -56,13 +56,14 @@
 
       homeConfigurations.mongodb = mkHomeConfiguration {
         system = "aarch64-darwin";
-        modules = [ ({lib,...}:
+        modules = [ ({lib , config, ...}:
         {
           home.username = lib.mkForce "ms";
           home.homeDirectory = lib.mkForce "/Users/ms";
         })];
         extraSpecialArgs = {
           isDesktop = true;
+          isCorporate = true;
           customGit = true;
           gitUser = "Manu Seeger";
           gitEmail = "manu.seeger@mongodb.com";

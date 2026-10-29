@@ -1,4 +1,4 @@
-pkgs: isDesktop: with pkgs; [
+pkgs: isDesktop: isCorporate: with pkgs; [
   git
   neovim
   zsh
@@ -19,11 +19,14 @@ pkgs: isDesktop: with pkgs; [
   podman
   podman-compose
   k9s
+] ++ pkgs.lib.optionals isCorporate [
+  gh
 ] ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [
   scroll-reverser
+  iterm2
 ] ++ pkgs.lib.optionals isDesktop [
   firefox
-  vscode
+  vscodium
   bitwarden-desktop
   obsidian
 ]
