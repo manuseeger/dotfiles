@@ -13,16 +13,12 @@ pkgs: isDesktop: with pkgs; [
   zsh-syntax-highlighting
   zsh-autosuggestions
   oh-my-zsh
-  firefox
   syncthing
-  vscodium
   kubectl
   kubectx
   podman
   podman-compose
   k9s
-  bitwarden-desktop
-  obsidian
 ] ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [
   scroll-reverser
 ] ++ pkgs.lib.optionals isDesktop [

@@ -38,12 +38,15 @@ in
   };
   programs.fzf.enable = true;
 
-  programs.vscodium = mkIf isDesktop {
+  programs.vscode = mkIf isDesktop {
     enable = true;
-    #extensions = with pkgs.vscode-extensions; [
-    #  vscodevim.vim
-    #  ms-python.python
-    #];
+    package = pkgs.vscodium;
+    profiles.default.extensions = with pkgs.vscode-extensions; [
+      vscode-extension-arcticicestudio-nord-visual-studio-code
+      vscode-extension-ms-kubernetes-tools-vscode-kubernetes-tools
+      vscode-extension-golang-go
+      vscode-extension-jnoortheen-nix-ide
+    ];
   };
 
   programs.git = {
@@ -51,7 +54,7 @@ in
     settings = {
       user = {
         name = if customGit then gitUser else "Nora Seeger";
-        email = if customGit then gitUser else "nora@seeger.ie";
+        email = if customGit then gitEmail else "nora@seeger.ie";
       };
       pull = {
         rebase=true;

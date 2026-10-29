@@ -1,3 +1,4 @@
+UNAME := $(shell uname)
 .PHONY: help
 help: ## Show this help message
 	@grep --no-filename -E '^[a-zA-Z_-]+:.*?##.*$$' $(MAKEFILE_LIST) | awk 'BEGIN { \
@@ -6,10 +7,8 @@ help: ## Show this help message
 	} \
 	{ printf "\033[32m%-30s\033[0m %s\n", $$1, $$2 }'
 
-bootstrap: lix darwin-nix home-manager ## Boostrap lix, nix-darwin, and home-manager
-home-manager: ## Install home-manager
-	nix-channel --add https://github.com/nix-community/home-manager/archive/release-26.05.tar.gz home-manager
-	nix-channel --update
+bootstrap: nix home-manager ## Install nix and run home-manager init
+home-manager: ## Install and init home-manager
 	nix run home-manager/release-26.05 -- init --switch .$#$(TARGET)
 
 nix-darwin: ## Install nix-darwin
@@ -19,14 +18,18 @@ nix-darwin: ## Install nix-darwin
 		sed -i '' "s/simple/$$(scutil --get LocalHostName)/" flake.nix && \
 		sudo nix run nix-darwin/nix-darwin-26.05#darwin-rebuild -- switch
 
-lix: ## Install lix
+nix: ## Install nix (lix for Darwin)
+ifeq ($(UNAME), Linux)
+	curl -L https://nixos.org/nix/install | sh -s -- --daemon
+endif
+ifeq ($(UNAME), Darwin)
 	curl -sSf -L https://install.lix.systems/lix -o /tmp/lix-setup.sh
 	sh /tmp/lix-setup.sh  install
 	. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 	rm /tmp/lix-setup.sh
+endif
 
 switch: ## Switch to current flake
-	home-manager switch $$(pwd) --flake .$#$(TARGET)
-
+	home-manager switch --flake .$#$(TARGET)
 
 .DEFAULT_GOAL: help
