@@ -41,12 +41,17 @@ in
   programs.vscodium = mkIf isDesktop {
     enable = true;
     package = pkgs.vscodium;
-    profiles.default.extensions = with pkgs.vscode-extensions; [
+    profiles.default = {
+      userSettings = {
+        "workbench.colorTheme" = "Nord";
+      };
+      extensions = with pkgs.vscode-extensions; [
       ms-kubernetes-tools.vscode-kubernetes-tools
       golang.go
       jnoortheen.nix-ide
       arcticicestudio.nord-visual-studio-code
     ];
+    };
   };
 
   programs.git = {
