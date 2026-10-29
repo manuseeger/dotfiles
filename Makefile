@@ -30,6 +30,6 @@ ifeq ($(UNAME), Darwin)
 endif
 
 switch: ## Switch to current flake
-	home-manager switch --flake .$#$(TARGET)
+	home-manager switch --flake .\#$(TARGET)
 
 .DEFAULT_GOAL: help

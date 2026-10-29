@@ -38,14 +38,14 @@ in
   };
   programs.fzf.enable = true;
 
-  programs.vscode = mkIf isDesktop {
+  programs.vscodium = mkIf isDesktop {
     enable = true;
     package = pkgs.vscodium;
     profiles.default.extensions = with pkgs.vscode-extensions; [
-      vscode-extension-arcticicestudio-nord-visual-studio-code
-      vscode-extension-ms-kubernetes-tools-vscode-kubernetes-tools
-      vscode-extension-golang-go
-      vscode-extension-jnoortheen-nix-ide
+      ms-kubernetes-tools.vscode-kubernetes-tools
+      golang.go
+      jnoortheen.nix-ide
+      arcticicestudio.nord-visual-studio-code
     ];
   };
 
