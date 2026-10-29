@@ -23,7 +23,7 @@ pkgs: isDesktop: with pkgs; [
   scroll-reverser
 ] ++ pkgs.lib.optionals isDesktop [
   firefox
-  vscodium
+  vscode
   bitwarden-desktop
   obsidian
 ]

@@ -38,9 +38,8 @@ in
   };
   programs.fzf.enable = true;
 
-  programs.vscodium = mkIf isDesktop {
+  programs.vscode = mkIf isDesktop {
     enable = true;
-    package = pkgs.vscodium;
     profiles.default = {
       userSettings = {
         "workbench.colorTheme" = "Nord";
