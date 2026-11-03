@@ -21,7 +21,7 @@ in
   home.username = "ns";
   home.stateVersion = "26.05";
  
-  programs.zsh = zshsettings pkgs config;
+  programs.zsh = zshsettings pkgs config isCorporate;
   programs.tmux = tmuxsettings pkgs;
   programs.atuin = atuinsettings pkgs;
   programs.starship = starshipsettings pkgs;
