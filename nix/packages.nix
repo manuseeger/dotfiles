@@ -16,6 +16,7 @@ pkgs: isDesktop: isCorporate: with pkgs; [
   syncthing
   kubectl
   kubectx
+  stern
   podman
   podman-compose
   k9s

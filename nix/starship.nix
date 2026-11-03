@@ -2,10 +2,13 @@ pkgs:{
   enable = true;
   # Configuration written to ~/.config/starship.toml
   settings = {
+    username.show_always = true;
     time.disabled = false;
     kubernetes = {
       disabled = false;
-      format = "'on [⛵ ($user on )($cluster in )$context \($namespace\)](dimmed green) '";
+      format = "[$symbol$context( ($namespace))]($style) in ";
+      style = "cyan bold";
+      symbol = "⛵ ";
     };
   };
 }
