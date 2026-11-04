@@ -56,6 +56,7 @@ in
   programs.git = {
     enable = true;
     settings = {
+      init.defaultBranch = "main";
       user = {
         name = if customGit then gitUser else "Nora Seeger";
         email = if customGit then gitEmail else "nora@seeger.ie";
