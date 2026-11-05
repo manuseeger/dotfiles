@@ -55,6 +55,10 @@ in
 
   programs.git = {
     enable = true;
+      signing = {
+    key = if isCorporate then "20160A1D345FA256DF62A6358E2060EF3800707C" else "";
+    signByDefault = if isCorporate then true else false;
+  };
     settings = {
       init.defaultBranch = "main";
       user = {

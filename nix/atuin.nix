@@ -7,5 +7,6 @@ pkgs:{
     sync_frequency = "5m";
     style = "compact";
     workspaces = true;
+    filter_mode_shell_up_key_binding = "directory";
   };
 }
