@@ -25,7 +25,7 @@ pkgs: isDesktop: isCorporate: with pkgs; [
 ] ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [
   scroll-reverser
   iterm2
-  istat-menus
+  # istat-menus - 404 as of 2026-11-10
 ] ++ pkgs.lib.optionals isDesktop [
   firefox
   vscodium
