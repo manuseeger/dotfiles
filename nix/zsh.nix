@@ -10,6 +10,9 @@ pkgs: config: isCorporate: with pkgs ; {
     export KUBECONFIG="/Users/ms/repos/kube-resources/.kube/config:/Users/ms/.kube/config"
     export PATH="''${PATH}:''${KREW_ROOT:-$HOME/.krew}/bin"
     export PATH="''${PATH}:''${ZDOTDIR:-$HOME}/.zsh/completion"
+    export PATH="''${PATH}:''${HOME}/go/bin"
+    
+    # mms
     export MMS_HOME=~/repos/mms
     export AWS_PROFILE=mms-scratch
     export M_PREFIX=~
@@ -20,6 +23,9 @@ pkgs: config: isCorporate: with pkgs ; {
 
     # ant.py raises if ANT_HOME is set but missing, so guard it
     [[ -d $HOME/apache-ant-1.10.5 ]] && export ANT_HOME=$HOME/apache-ant-1.10.5
+
+    # mms-automation
+    export CM_ROOT=~/repos/mms-automation/go_planner
   '' else "";
   initContent = if isCorporate then ''
     # asdf (brew, no asdf.sh needed) -- literal "asdf.sh" kept for onboarding's grep

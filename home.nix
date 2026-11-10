@@ -2,10 +2,12 @@
 
 let
   packages = import ./nix/packages.nix;
-  tmuxsettings = import ./nix/tmux.nix;
-  atuinsettings = import ./nix/atuin.nix;
-  zshsettings = import ./nix/zsh.nix;
-  starshipsettings = import ./nix/starship.nix;
+  tmuxSettings = import ./nix/tmux.nix;
+  atuinSettings = import ./nix/atuin.nix;
+  zshSettings = import ./nix/zsh.nix;
+  starshipSettings = import ./nix/starship.nix;
+  goSettings = import ./nix/go.nix;
+  gitSettings = import ./nix/git.nix;
 
   inherit (specialArgs) customGit gitUser gitEmail isDesktop isCorporate;
   inherit (lib) mkIf;
@@ -21,10 +23,13 @@ in
   home.username = "ns";
   home.stateVersion = "26.05";
  
-  programs.zsh = zshsettings pkgs config isCorporate;
-  programs.tmux = tmuxsettings pkgs;
-  programs.atuin = atuinsettings pkgs;
-  programs.starship = starshipsettings pkgs;
+  programs.zsh = zshSettings pkgs config isCorporate;
+  programs.tmux = tmuxSettings pkgs;
+  programs.atuin = atuinSettings pkgs;
+  programs.starship = starshipSettings pkgs;
+  programs.go = goSettings pkgs lib isCorporate;
+  programs.git = gitSettings pkgs lib isCorporate customGit gitUser gitEmail;
+  
   programs.jq.enable = true;
   programs.ssh = {
     enable = true;
@@ -53,21 +58,4 @@ in
     };
   };
 
-  programs.git = {
-    enable = true;
-      signing = {
-    key = if isCorporate then "20160A1D345FA256DF62A6358E2060EF3800707C" else "";
-    signByDefault = if isCorporate then true else false;
-  };
-    settings = {
-      init.defaultBranch = "main";
-      user = {
-        name = if customGit then gitUser else "Nora Seeger";
-        email = if customGit then gitEmail else "nora@seeger.ie";
-      };
-      pull = {
-        rebase=true;
-      };
-    };
-  };
 }
