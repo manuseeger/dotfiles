@@ -21,7 +21,7 @@
 
       mkHomeConfiguration = args: home-manager.lib.homeManagerConfiguration ( rec {
         modules = [ (import ./home.nix) ] ++ (args.modules or []);
-        pkgs = pkgsForSystem (args.system); 
+        pkgs = pkgsForSystem (args.system);
       } // { inherit (args) extraSpecialArgs; });
     in utils.lib.eachSystem [ "x86_64-linux" "aarch64-darwin" "aarch64-linux" ] (system: rec {
       legacyPackages = pkgsForSystem system;
@@ -40,6 +40,8 @@
         })];
         extraSpecialArgs = {
           isDesktop = true;
+	  isCorporate = false;
+          customGit = false;
         };
       };
 
@@ -47,10 +49,13 @@
         system = "aarch64-darwin";
         modules = [ ({lib,...}:
         {
+          home.username = lib.mkForce "ns";
           home.homeDirectory = lib.mkForce "/Users/ns";
         })];
         extraSpecialArgs = {
           isDesktop = true;
+	  isCorporate = false;
+          customGit = false;
         };
       };
 
@@ -70,15 +75,17 @@
         };
       };
 
-      homeConfigurations.v = mkHomeConfiguration {
+      homeConfigurations.nyx = mkHomeConfiguration {
         system = "x86_64-linux";
         modules = [ ({lib,...}:
         {
-          home.username = lib.mkForce "manu";
-          home.homeDirectory = lib.mkForce "/home/manu";
+          home.username = lib.mkForce "nora";
+          home.homeDirectory = lib.mkForce "/home/nora";
         })];
         extraSpecialArgs = {
           isDesktop = true;
+	  isCorporate = false;
+          customGit = false;
         };
       };
 
@@ -91,6 +98,8 @@
         })];
         extraSpecialArgs = {
           isDesktop = false;
+	  isCorporate = false;
+          customGit = false;
         };
       };
 
@@ -103,6 +112,8 @@
         })];
         extraSpecialArgs = {
           isDesktop = false;
+	  isCorporate = false;
+          customGit = false;
         };
       };
     inherit home-manager;

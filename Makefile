@@ -8,8 +8,9 @@ help: ## Show this help message
 	{ printf "\033[32m%-30s\033[0m %s\n", $$1, $$2 }'
 
 bootstrap: nix home-manager ## Install nix and run home-manager init
+
 home-manager: ## Install and init home-manager
-	nix run home-manager/release-26.05 -- init --switch .$#$(TARGET)
+	nix run home-manager/release-26.05 -- init --switch .\#$(TARGET)
 
 nix-darwin: ## Install nix-darwin
 	sudo mkdir -p /etc/nix-darwin

@@ -19,8 +19,8 @@ in
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   home.packages = packages pkgs isDesktop isCorporate;
-  home.homeDirectory = "/home/ns";
-  home.username = "ns";
+  home.homeDirectory = "/home/nora";
+  home.username = "nora";
   home.stateVersion = "26.05";
  
   programs.zsh = zshSettings pkgs config isCorporate;
