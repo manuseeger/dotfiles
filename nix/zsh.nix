@@ -44,7 +44,6 @@ pkgs: config: isCorporate: with pkgs ; {
         "z"
         "kubectl"
         "docker"
-        "fzf"
     ];
     theme = "robbyrussell";
   };

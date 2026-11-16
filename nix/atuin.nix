@@ -2,6 +2,7 @@ pkgs:{
   enable = true;
   enableZshIntegration = true;
   settings = {
+    enter_accept = true;
     auto_sync = true;
     sync_address = "https://atuin.svc.kieweg.dev";
     sync_frequency = "5m";

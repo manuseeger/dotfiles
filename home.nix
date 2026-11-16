@@ -8,6 +8,7 @@ let
   starshipSettings = import ./nix/starship.nix;
   goSettings = import ./nix/go.nix;
   gitSettings = import ./nix/git.nix;
+  sshSettings = import ./nix/ssh.nix;
 
   inherit (specialArgs) customGit gitUser gitEmail isDesktop isCorporate;
   inherit (lib) mkIf;
@@ -29,19 +30,8 @@ in
   programs.starship = starshipSettings pkgs;
   programs.go = goSettings pkgs lib isCorporate;
   programs.git = gitSettings pkgs lib isCorporate customGit gitUser gitEmail;
-  
+  programs.ssh = sshSettings pkgs ;  
   programs.jq.enable = true;
-  programs.ssh = {
-    enable = true;
-    enableDefaultConfig = false;
-    settings = {
-      "Github.com" = {
-        addKeysToAgent = "yes";
-        identityFile = "~/.ssh/github";
-      };
-    };
-  };
-  programs.fzf.enable = true;
 
   programs.vscodium = mkIf isDesktop {
     enable = true;
