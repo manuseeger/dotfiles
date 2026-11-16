@@ -27,6 +27,10 @@ pkgs: config: isCorporate: with pkgs ; {
     # mms-automation
     export CM_ROOT=~/repos/mms-automation/go_planner
   '' else "";
+  profileExtra = if isCorporate then ''
+    # ~/bin on PATH (preonboarding's homebin check)
+    [[ ''${path[(i)$HOME/bin]} -le ''${#path} ]] || path=($HOME/bin $path)
+  '' else "";
   initContent = if isCorporate then ''
     # asdf (brew, no asdf.sh needed) -- literal "asdf.sh" kept for onboarding's grep
     export PATH="''${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"

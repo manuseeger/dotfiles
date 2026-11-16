@@ -22,7 +22,7 @@ pkgs: isDesktop: isCorporate: with pkgs; [
   k9s
 ] ++ pkgs.lib.optionals isCorporate [
   gh
-] ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [
+] ++ pkgs.lib.optionals stdenv.hostPlatform.isDarwin [
   scroll-reverser
   iterm2
   # istat-menus - 404 as of 2026-11-10

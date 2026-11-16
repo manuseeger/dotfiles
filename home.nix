@@ -12,7 +12,7 @@ let
 
   inherit (specialArgs) customGit gitUser gitEmail isDesktop isCorporate;
   inherit (lib) mkIf;
-  inherit (pkgs.stdenv) isLinux isDarwin;
+  inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
 in
 {
   nixpkgs.config.allowUnfree = true;
