@@ -16,6 +16,10 @@ pkgs:{
   ];
 
   extraConfig = ''
+    # report modified keys (e.g. Shift+Enter) to programs that request them
+    set -g extended-keys on
+    set -g extended-keys-format csi-u
+
     # easy-to-remember split pane commands
     bind | split-window -h
     bind - split-window -v
